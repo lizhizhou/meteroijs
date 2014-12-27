@@ -13,10 +13,6 @@ Build the project by
 
 node-gyp configure build
 
-Install the project by 
-
-node-gyp install
-
 Test the project by 
 
 node unit_test.js

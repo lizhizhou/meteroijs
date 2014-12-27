@@ -1,3 +1,3 @@
-var addon = require('./build/Release/addon');
+var meteroi = require('./build/Release/meteroi');
 
-console.log( 'This should be eight:', addon.add(3,5) );
+console.log( 'This should be eight:', meteroi.add(3,5) );
