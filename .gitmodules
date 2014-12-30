@@ -1,0 +1,3 @@
+[submodule "meteroishell"]
+	path = meteroishell
+	url = https://github.com/lizhizhou/meteroishell.git
