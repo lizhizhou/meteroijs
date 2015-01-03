@@ -7,11 +7,10 @@
 
 #ifndef LOPHILO_H_
 #define LOPHILO_H_
-#include <stdio.h>
 //Functionality: Initial the broad
 int init(void)
 {
-	printf("call init");
+	return 1;
 }
 //Functionality: Control the led
 //Argument:
@@ -21,7 +20,7 @@ int init(void)
 //b: The blue color of led
 void led(int id, char r, char g, char b)
 {
-	printf("call led");
+
 }
 
 //Functionality: Control the IO port a
@@ -30,7 +29,7 @@ void led(int id, char r, char g, char b)
 //value: Can be 1 or 0
 void ioa(int id, int value)
 {
-	printf("call ioa");
+
 }
 
 //Functionality: Control the IO port b
@@ -39,7 +38,7 @@ void ioa(int id, int value)
 //value: Can be 1 or 0
 void iob(int id, int value)
 {
-	printf("call iob");
+
 }
 
 //Functionality: print the string to the console
@@ -47,23 +46,16 @@ void iob(int id, int value)
 //format:output format string
 int print(const char* format, ...)
 {
-	printf("call print");
+	return 1;
 }
 
 //Functionality: Sleep for seconds
 //Argument:
 //seconds The seconds for sleeping
-unsigned int sleep(unsigned int seconds)
-{
-	printf("call sleep");
-}
 
 //Functionality: Sleep for micro seconds
 //Argument:
 //usecods: The micro seconds for sleeping
-int usleep(unsigned int useconds)
-{
-	printf("call usleep");
-}
+
 
 #endif /* LOPHILO_H_ */

@@ -1,9 +1,9 @@
 #define BUILDING_NODE_EXTENSION
 #include <string>
-#include <list>
+#include <sstream>
 #include <map>
 #include <node.h>
-//#include "lophilo.h"
+#include "lophilo.h"
 
 using namespace v8;
 using namespace std;
@@ -82,20 +82,32 @@ Handle<Value> agent(string name, const Arguments& args) {
 	}
 
 	if (func_address == NULL) {
-		ThrowException(Exception::TypeError(String::New("Wrong method")));
+		string message = "Wrong method name ";
+		message+= name;
+		ThrowException(Exception::TypeError(String::New(message.c_str())));
 		return scope.Close(Undefined());
 	}
 
 	if (args.Length() != argc) {
+		stringstream s;
+		string message ="Wrong number of arguments need ";
+		s << argc;
+		message+= s.str();
 		ThrowException(
-				Exception::TypeError(String::New("Wrong number of arguments")));
+				Exception::TypeError(String::New(message.c_str())));
 		return scope.Close(Undefined());
 	}
-    //todo function type check
-	//	if (!args[0]->IsNumber() || !args[1]->IsNumber()) {
-	//		ThrowException(Exception::TypeError(String::New("Wrong arguments")));
-	//		return scope.Close(Undefined());
-	//	}
+
+	for(int i=0; i< argc;i++) {
+		if(!args[i]->IsNumber()) {
+			stringstream s;
+			string message ="Wrong arguments ";
+			s << i;
+			message+= s.str();
+			ThrowException(Exception::TypeError(String::New(message.c_str())));
+			return scope.Close(Undefined());
+		}
+	}
 
 	for(int i=0; i< argc;i++)
 		arg[i] = args[i]->NumberValue();
@@ -136,25 +148,27 @@ Handle<Value> agent(string name, const Arguments& args) {
 	return scope.Close(num);
 }
 
-char add(char a, char b) {
+int add(int a, int b) {
 	return a + b;
-}
-
-void led(char a, char b, char c, char d) {
-
 }
 
 DEFINE_FUNCTION_HANDLE(add);
 DEFINE_FUNCTION_HANDLE(led);
+DEFINE_FUNCTION_HANDLE(ioa);
+DEFINE_FUNCTION_HANDLE(iob);
+DEFINE_FUNCTION_HANDLE(sleep);
+
 fun_table table[] = {
 DEFINE_FUNCTION(char,add,(char a, char b)),
-DEFINE_FUNCTION(void,led,(char a, char b, char c, char d)),
+DEFINE_FUNCTION(void,led,(int id, char r, char g, char b)),
+DEFINE_FUNCTION(void,ioa,(int id, int value)),
+DEFINE_FUNCTION(void,iob,(int id, int value)),
+DEFINE_FUNCTION(unsigned int,sleep,(unsigned int seconds)),
 TABLE_NULL
 };
 //todo map<string, void*> fun_table;
 
 void Init(Handle<Object> exports) {
-	int i = 0;
 	fun_table* table_p = table;
 	while (table_p != &TABLE_NULL) {
 		exports->Set(String::NewSymbol(table_p->name.c_str()),
