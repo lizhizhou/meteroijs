@@ -3,6 +3,8 @@ meteroijs
 
 The js wrapper for meteroi library
 
+Only support basic number argument for api. There is no string or structure support. 
+
 Install the nodejs and nodejs-gyp by 
 
 apt-get install nodejs
