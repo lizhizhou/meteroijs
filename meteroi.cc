@@ -152,12 +152,14 @@ int add(int a, int b) {
 	return a + b;
 }
 
+//Add handle
 DEFINE_FUNCTION_HANDLE(add);
 DEFINE_FUNCTION_HANDLE(led);
 DEFINE_FUNCTION_HANDLE(ioa);
 DEFINE_FUNCTION_HANDLE(iob);
 DEFINE_FUNCTION_HANDLE(sleep);
 
+//Add c function
 fun_table table[] = {
 DEFINE_FUNCTION(char,add,(char a, char b)),
 DEFINE_FUNCTION(void,led,(int id, char r, char g, char b)),
@@ -175,6 +177,7 @@ void Init(Handle<Object> exports) {
 				FunctionTemplate::New(table_p->call)->GetFunction());
 		table_p++;
 	}
+        //Add spetial case function whose parameter is not number
 }
 
 NODE_MODULE(meteroi, Init)
